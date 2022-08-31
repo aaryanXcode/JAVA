@@ -1,0 +1,10 @@
+class Atm extends Thread
+{
+
+}
+class Person
+{
+	public static void main(String a[])
+	{
+		Atm x=new Atm();
+		new 

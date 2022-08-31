@@ -1,0 +1,87 @@
+class studentMarksSheet extends Panel  implements ActionListener
+{
+	Panel center;
+	Button processButton,firstDivButton,secondDivButton,thirdDivButton,failButton;
+	Label rollNoLabel,physicsLabel,chemistryLabel,mathLabel,totalLabel,percentageLabel,divLabel;
+	TextField txRollNo,txPhysics,txChemistry,txMaths,txTotal,txPercentage,txDivision;
+	
+	
+	studentMarksSheet()
+	{
+		
+		setVisible(true);
+		setLayout(new FlowLayout());
+		center =new Panel();
+		center.setLayout(new FlowLayout());
+
+		rollNoLabel=new Label("Roll Number");
+		rollNoLabel.setFont(new Font("Arial", Font. PLAIN, 20));
+	
+		txRollNo=new TextField(10);
+		txRollNo.setFont(new Font("Arial", Font. PLAIN, 20));
+	
+		physicsLabel=new Label("Physics Marks");
+		physicsLabel.setFont(new Font("Arial", Font. PLAIN, 20));
+	
+		txPhysics=new TextField(10);
+		txPhysics.setFont(new Font("Arial", Font. PLAIN, 20));
+	
+		chemistryLabel=new Label("Chemistry marks");
+		chemistryLabel.setFont(new Font("Arial", Font. PLAIN, 20));
+
+		txChemistry=new TextField(10);
+		txChemistry.setFont(new Font("Arial", Font. PLAIN, 20));
+		
+		mathLabel=new Label("Maths marks");
+		mathLabel.setFont(new Font("Arial", Font. PLAIN, 20));
+
+		txMaths=new TextField(10);
+		txMaths.setFont(new Font("Arial", Font. PLAIN, 20));
+		
+		processButton=new Button("Process");
+		processButton.setFont(new Font("Arial", Font. PLAIN, 20));
+		processButton.addActionListener(this);
+			
+
+		totalLabel=new Label("Roll Number");
+		totalLabel.setFont(new Font("Arial", Font. PLAIN, 20));
+	
+		txTotal=new TextField(10);
+		txTotal.setFont(new Font("Arial", Font. PLAIN, 20));
+	
+		percentageLabel=new Label("Percentage");
+		percentageLabel.setFont(new Font("Arial", Font. PLAIN, 20));
+	
+		txPercentage=new TextField(10);
+		txPercentage.setFont(new Font("Arial", Font. PLAIN, 20));
+	
+		divLabel=new Label("Division");
+		divLabel.setFont(new Font("Arial", Font. PLAIN, 20));
+
+		txDivision=new TextField(10);
+		txDivision.setFont(new Font("Arial", Font. PLAIN, 20));	
+			
+			
+		center.add(rollNoLabel);
+		center.add(txRollNo);
+		center.add(physicsLabel);
+		center.add(txPhysics);
+		center.add(chemistryLabel);
+		center.add(txChemistry);
+		center.add(mathLabel);
+		center.add(txMaths);
+		center.add(processButton);
+		center.add(totalLabel);
+		center.add(txTotal);
+		center.add(percentageLabel);
+		center.add(txPercentage);
+		center.add(divLabel);
+		center.add(txDivision);
+		add(center);
+		show();
+	}
+	public void actionPerformed(ActionEvent ae)
+	{		
+		Object obj=ae.getSource();
+	}
+}

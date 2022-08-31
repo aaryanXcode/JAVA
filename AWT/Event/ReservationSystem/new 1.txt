@@ -1,0 +1,389 @@
+import java.awt.*;
+import java.awt.event.*;
+class ticketPanel extends Frame implements ActionListener
+{
+	
+	Panel north,center,passenger;
+	Checkbox cb1,cb2,cb3;
+	//PassengerInfo pInfo;
+	passengerList P;
+	CheckboxGroup cbg1;
+	Choice ch1;
+	Button add;
+	TextField distText,nametxt;
+	Label distance,ageGroup,seatingClass,name;
+	String sClass="";
+	
+	/*
+	String a="Aryan";
+	int firsClassFare=300;
+	int secondClassFare=200;
+	int thirdClassFare=100;
+	int distanceTraveled=0;
+	
+	String age="";
+	int nominal_fair=10;
+	int fare=nominal_fair*distanceTraveled;
+	int y=0;
+	int totalfare=0;
+	String consession="";
+	int payable_amount=0;
+	*/
+	public ticketPanel()
+	{
+		
+		super("Bill generator");
+		setSize(1000,400);
+		setVisible(true);
+		setLayout(new BorderLayout());   
+ 
+		north=new Panel();
+		north.setLayout(new FlowLayout());
+		name=new Label("Name");
+		nametxt=new TextField(10);
+		distance=new Label("Distance");
+		distText=new TextField(10);
+		seatingClass=new Label("Class");
+		cbg1=new CheckboxGroup();
+		north.add(name);
+		north.add(nametxt);
+		north.add(distance);
+		north.add(distText);
+		north.add(seatingClass);
+		
+		cb1=new Checkbox("First Class",false,cbg1);
+		cb2=new Checkbox("Second Class",false,cbg1);
+		cb3=new Checkbox("Third Class",false,cbg1);
+		north.add(cb1);
+		north.add(cb2);
+		north.add(cb3);
+		
+		ageGroup=new Label("Age Group");
+		north.add(ageGroup);
+		ch1=new Choice();
+		ch1.add("0-10");
+		ch1.add("10-20");
+		ch1.add("20-60");
+		ch1.add("60-100");
+		north.add(ch1);
+		
+		add=new Button("Add");
+		add.addActionListener(this);
+		north.add(add);
+		add(north,BorderLayout.NORTH);
+		show();
+		P=new passengerList();
+	}
+	
+	
+	public void actionPerformed(ActionEvent ae)
+	{	
+		
+		Object obj=ae.getSource();
+		
+		if(obj==add)
+		{
+			
+			if(cb1.getState()!=false)
+			{
+				sClass=cb1.getLabel();
+				
+			}
+			else if(cb2.getState()!=false)
+			{
+				sClass=cb2.getLabel();
+				
+			}
+			else if(cb3.getState()!=false)
+			{
+				sClass=cb3.getLabel();
+			}
+			else
+			{
+				System.out.println("please select a checkbox");
+			}
+			String Name=nametxt.getText();
+			String distanceTraveled=distText.getText();
+			String seatClass=sClass;
+			String passengerAge=ch1.getSelectedItem();
+			P.add(new PassengerInfo(Name,distanceTraveled,seatClass,passengerAge));
+		//	P.add(new PassengerInfo(nametxt.getText(),distText.getText(),sClass,ch1.getSelectedItem()));
+			
+
+		}
+	}
+	
+	public static void main(String a[])
+	{
+		new ticketPanel();
+		
+	}
+}
+
+////passenger info
+import java.awt.*;
+import java.awt.event.*;
+class PassengerInfo extends Panel  implements ActionListener
+{
+	
+	Button update;
+	Label name,age,dist,sClass,totalAmount;
+	TextField nametxt,agetxt,disttxt,sClasstxt,totalAmounttxt;
+	Choice ch1,ch2;
+	PassengerInfo(String Name,String distance,String seatingClass,String Age)
+	{
+		setVisible(true);
+		setLayout(new FlowLayout());
+		setSize(500,200);
+		
+		
+		name=new Label("name");
+		name.setFont(new Font("Arial", Font. PLAIN, 20));
+		nametxt=new TextField(Name);
+		nametxt.setFont(new Font("Arial", Font. PLAIN, 20));
+		
+		age=new Label("age");
+		age.setFont(new Font("Arial", Font. PLAIN, 20));
+		ch2=new Choice();
+		ch2.add(Age);
+		
+		
+		dist=new Label("distance travel");
+		dist.setFont(new Font("Arial", Font. PLAIN, 20));
+		disttxt=new TextField(distance);
+		disttxt.setFont(new Font("Arial", Font. PLAIN, 20));
+	
+		sClass=new Label("seating class");
+		sClass.setFont(new Font("Arial", Font. PLAIN, 20));
+		ch1=new Choice();
+		ch1.add(seatingClass);
+		
+		
+		
+		totalAmount=new Label("total Amount");
+		totalAmount.setFont(new Font("Arial", Font. PLAIN, 20));
+		totalAmounttxt=new TextField(5);
+		totalAmounttxt.setFont(new Font("Arial", Font. PLAIN, 20));
+		
+		update=new Button("update");
+		update.setFont(new Font("Arial", Font. PLAIN, 20));
+	
+		add(name);
+		add(nametxt);
+		add(age);
+		add(ch2);
+		add(ch2);
+		add(dist);
+		add(disttxt);
+		add(sClass);
+		add(ch1);
+		add(totalAmount);
+		add(totalAmounttxt);
+		add(update);
+	}
+	
+	public void actionPerformed(ActionEvent ae)
+	{	
+		
+		Object obj=ae.getSource();
+	}
+	
+			
+}
+// passenger list
+import java.util.*; 
+import java.awt.*;
+import java.awt.event.*;
+class passengerList extends Frame implements ActionListener
+{
+	int firsClassFare=300;
+	int secondClassFare=200;
+	int thirdClassFare=100;
+	int distanceTraveled=0;
+	
+	String age="";
+	int nominal_fair=10;
+	int fare=nominal_fair*distanceTraveled;
+	int y=0;
+	int totalfare=0;
+	String consession="";
+	int payable_amount=0;
+	//
+	PassengerInfo p;
+	Vector<PassengerInfo> v = new Vector<PassengerInfo>();  
+	Panel center,south;
+	Label TotalBill;
+	TextField TotalBilltxt;
+	int noOfPassengers=10;
+	passengerList()
+	{
+		super("passengerList");
+		setVisible(true);
+		setSize(700,700);
+		setLayout(new BorderLayout());
+		
+		center=new Panel();
+		center.setLayout(new GridLayout(noOfPassengers,1));  //no of students will be replaced by vector size()
+		
+		south=new Panel();
+		south.setLayout(new GridLayout(1,1));
+		TotalBill=new Label("Total Bill");
+		TotalBilltxt=new TextField(10);
+		south.add(TotalBill);
+		south.add(TotalBilltxt);
+		//add(south,BorderLayout.CENTER);
+		show();
+	}
+	public void add(PassengerInfo p)
+	{
+		
+		
+		v.add(p);
+		for(int i=0;i<v.size();i++)
+		{
+			payable_amount=generateBill(v.get(i).disttxt.getText(),v.get(i).ch1.getSelectedItem(),v.get(i).ch2.getSelectedItem());
+			v.get(i).totalAmounttxt.setText(payable_amount+"");
+		//	System.out.println(v.get(i).nametxt.getText()+v.get(i).disttxt.getText()+v.get(i).ch1.getSelectedItem()+v.get(i).ch2.getSelectedItem());
+		//  name=v.get(i).nametxt.getText();
+		//  distance=v.get(i).disttxt.getText();
+		//  class=v.get(i).ch1.getSelectedItem();
+		//  age=v.get(i).ch2.getSelectedItem();
+		}
+		totalBill();
+		center.add(p);
+		
+		add(center,BorderLayout.CENTER);
+		show();
+	}
+	public void totalBill()
+	{
+		int amountSum=0;
+		for(int i=0;i<v.size();i++)
+		{
+			amountSum+=Integer.parseInt(v.get(i).totalAmounttxt.getText());
+		}
+		TotalBilltxt.setText(amountSum+"");
+	}
+	
+	public void actionPerformed(ActionEvent ae)
+	{
+		Object obj=ae.getSource();
+	}
+	public int getAmountAccordingClass(String age,int classFare,int ageConsession)
+	{
+		consession=ageConsession+"";
+		y=classFare;
+		totalfare=y+fare;
+		payable_amount=totalfare-((totalfare*ageConsession)/100);
+		System.out.println(payable_amount);
+		
+		return payable_amount;
+		
+	}
+	public int generateBill(String distanceTraveled, String sClass, String age)
+	{
+		
+		//distanceTraveled=Integer.parseInt(distText.getText());
+		//age=ch1.getSelectedItem();
+		nominal_fair=10;
+		fare=nominal_fair*(Integer.parseInt(distanceTraveled));
+		y=0;
+		totalfare=0;
+		consession="";
+		payable_amount=0;
+		if(sClass=="First Class")
+		{
+			
+			if(age=="0-10")
+			{
+				consession="100%";
+				payable_amount=getAmountAccordingClass(age,firsClassFare,100);
+				
+			}
+			if(age=="10-20")
+			{
+				consession="30%";
+				
+				payable_amount=getAmountAccordingClass(age,firsClassFare,30);
+				
+			}	
+			if(age=="30-60")
+			{
+				
+				consession="0%";
+				
+				payable_amount=getAmountAccordingClass(age,firsClassFare,100);
+				
+			}
+			if(age=="60-100")
+			{
+				consession="50%";
+				
+				payable_amount=getAmountAccordingClass(age,firsClassFare,50);
+				
+			}	
+				
+			
+		}
+		//2nd class
+	
+		if(sClass=="Second Class")
+		{
+			if(age=="0-10")
+			{
+				consession="100%";
+				
+				payable_amount=getAmountAccordingClass(age,secondClassFare,100);
+			}
+			if(age=="10-20")
+			{
+				consession="30%";
+				payable_amount=getAmountAccordingClass(age,secondClassFare,30);
+			}	
+			if(age=="30-60")
+			{
+				consession="0%";
+				payable_amount=getAmountAccordingClass(age,secondClassFare,100);
+			}
+			if(age=="60-100")
+			{
+				consession="50%";
+				payable_amount=getAmountAccordingClass(age,secondClassFare,50);
+			}	
+		}
+		//third class
+		if(sClass=="Third Class")
+		{
+			if(age=="0-10")
+			{
+				
+				consession="100%";
+				payable_amount=getAmountAccordingClass(age,thirdClassFare,100);
+			}
+			if(age=="10-20")
+			{
+				consession="30%";
+				payable_amount=getAmountAccordingClass(age,thirdClassFare,30);
+			}	
+			if(age=="30-60")
+			{
+				consession="0%";
+				payable_amount=getAmountAccordingClass(age,thirdClassFare,100);
+			}
+			if(age=="60-100")
+			{
+				consession="50%";
+				payable_amount=getAmountAccordingClass(age,thirdClassFare,50);
+			}	
+		}
+		return payable_amount;
+	}	
+	
+
+	public static void main(String a[])
+	{
+		
+		new passengerList();
+		
+	}
+}

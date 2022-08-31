@@ -1,0 +1,30 @@
+class Solution {
+public:
+    void subsequence(vector<int>& nums,int s,vector<int>&ans,int index,int n,int sum,vector<int>&res)
+    {
+        if(index==n)
+        {
+            if(sum==s)
+            {
+                //int size=ans.size();
+                res.push_back(ans.size()); 
+            }
+            return ;
+        }
+        ans.push_back(nums[index]);
+        sum+=nums[index];
+        subsequence(nums,s,ans,index+1,n,sum,res);
+        sum-=nums[index];
+        subsequence(nums,s,ans,index+1,n,sum,res);
+    }
+    vector<int> answerQueries(vector<int>& nums, vector<int>& queries) {
+        vector<int> ans;
+        vector<int> res;
+        int n=nums.size();
+        for(int i=0;i<queries.size();i++)
+        {
+            subsequence(nums,queries[i],ans,0,n,0,res);
+        }
+        return res;
+    }
+};
